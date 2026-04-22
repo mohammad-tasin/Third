@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Chip Database – Mobile IC Identifier</title>
+  <meta name="description" content="Browse all mobile phone ICs by category: CPU, eMMC, PMIC, RF, Audio, and more." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="brand-icon">🔬</span>
+        Mobile IC Identifier
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload.html">Upload</a></li>
+        <li><a href="/camera.html">Camera</a></li>
+        <li><a href="/search.html">Search</a></li>
+        <li><a href="/browse.html" class="active">Browse DB</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>📚 Browse Chip Database</h1>
+      <p>Browse and filter our database of mobile phone ICs by category. Click any chip to see full technical details.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Quick search within browse -->
+    <div style="margin-bottom:16px">
+      <input
+        type="text"
+        class="form-input"
+        id="browse-search"
+        placeholder="Filter chips by name, code, or manufacturer…"
+        maxlength="100"
+        autocomplete="off"
+        aria-label="Filter chips"
+      />
+    </div>
+
+    <!-- Category filter bar -->
+    <div class="filter-bar" id="filter-bar" aria-label="Filter by category">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Count -->
+    <div class="results-header" style="margin-bottom:16px">
+      <div class="card-title" style="margin-bottom:0">All Chips</div>
+      <div class="results-count" id="total-count"></div>
+    </div>
+
+    <!-- Chips grid -->
+    <div id="chips-grid">
+      <div style="text-align:center;padding:60px 0">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading chip database…</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Mobile IC Identifier &mdash; For repair technicians &amp; electronics enthusiasts.
+    </div>
+  </footer>
+
+  <!-- Chip Detail Modal -->
+  <div class="modal-overlay" id="chip-modal" role="dialog" aria-modal="true">
+    <div class="modal" id="chip-modal-content"></div>
+  </div>
+
+  <script src="/js/shared.js"></script>
+  <script src="/js/browse.js"></script>
+</body>
+</html>

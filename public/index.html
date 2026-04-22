@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile IC Identifier – Identify Phone Chips Instantly</title>
+  <meta name="description" content="Identify mobile phone ICs (CPU, eMMC, PMIC, RF, Audio chips) by uploading a photo, scanning with camera, or entering the chip code." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="brand-icon">🔬</span>
+        Mobile IC Identifier
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/upload.html">Upload</a></li>
+        <li><a href="/camera.html">Camera</a></li>
+        <li><a href="/search.html">Search</a></li>
+        <li><a href="/browse.html">Browse DB</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="page-header">
+    <div class="container">
+      <h1>Identify Mobile Phone ICs Instantly</h1>
+      <p>Upload a photo of your motherboard, scan live with your camera, or enter a chip code to get full technical details about any mobile IC.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Feature Cards -->
+    <div class="feature-grid">
+      <a class="feature-card" href="/upload.html">
+        <div class="feature-icon">📷</div>
+        <div class="feature-title">Upload Image</div>
+        <div class="feature-desc">
+          Take a photo of your PCB or chip and our OCR engine will read the chip markings and identify them automatically.
+        </div>
+      </a>
+
+      <a class="feature-card" href="/camera.html">
+        <div class="feature-icon">🎥</div>
+        <div class="feature-title">Live Camera Scan</div>
+        <div class="feature-desc">
+          Use your device camera in real time to point at a chip and capture a frame for instant identification.
+        </div>
+      </a>
+
+      <a class="feature-card" href="/search.html">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Manual Search</div>
+        <div class="feature-desc">
+          Type the chip code, part number, or name to search the database with exact and fuzzy matching.
+        </div>
+      </a>
+
+      <a class="feature-card" href="/browse.html">
+        <div class="feature-icon">📚</div>
+        <div class="feature-title">Browse Database</div>
+        <div class="feature-desc">
+          Browse all chips by category: CPU/SoC, eMMC/UFS, PMIC, RF IC, Audio IC, Sensors, and more.
+        </div>
+      </a>
+    </div>
+
+    <!-- Supported Categories -->
+    <div class="card" style="margin-bottom:32px">
+      <div class="card-title">🧩 Supported IC Categories</div>
+      <div class="filter-bar" style="margin-bottom:0">
+        <span class="filter-chip active">CPU / SoC</span>
+        <span class="filter-chip active">eMMC / UFS</span>
+        <span class="filter-chip active">PMIC</span>
+        <span class="filter-chip active">Charging IC</span>
+        <span class="filter-chip active">RF IC</span>
+        <span class="filter-chip active">Audio IC</span>
+        <span class="filter-chip active">Wi-Fi / BT</span>
+        <span class="filter-chip active">Display Driver</span>
+        <span class="filter-chip active">Touch IC</span>
+        <span class="filter-chip active">Camera Sensor</span>
+        <span class="filter-chip active">IMU / Sensor</span>
+        <span class="filter-chip active">NFC IC</span>
+        <span class="filter-chip active">USB-C IC</span>
+        <span class="filter-chip active">Fingerprint IC</span>
+        <span class="filter-chip active">Secure Element</span>
+        <span class="filter-chip active">MCU</span>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="card">
+      <div class="card-title">⚡ How It Works</div>
+      <div class="two-col">
+        <div>
+          <p style="color:var(--color-text-muted);font-size:.9rem;line-height:1.7">
+            <strong style="color:var(--color-text)">1. Capture or Upload</strong><br>
+            Take a clear, well-lit photo of the chip marking. The chip label is usually a small text printed on the IC package.
+          </p>
+        </div>
+        <div>
+          <p style="color:var(--color-text-muted);font-size:.9rem;line-height:1.7">
+            <strong style="color:var(--color-text)">2. OCR Processing</strong><br>
+            Our server runs Tesseract OCR with image preprocessing (greyscale, sharpen, normalize, invert) to extract the chip code.
+          </p>
+        </div>
+        <div>
+          <p style="color:var(--color-text-muted);font-size:.9rem;line-height:1.7">
+            <strong style="color:var(--color-text)">3. Database Match</strong><br>
+            The extracted code is matched against our database of 60+ chips using exact and fuzzy matching. A confidence score is shown.
+          </p>
+        </div>
+        <div>
+          <p style="color:var(--color-text-muted);font-size:.9rem;line-height:1.7">
+            <strong style="color:var(--color-text)">4. View Full Details</strong><br>
+            Get specs, compatible phones, technical details, process node, interfaces, and more — all from one click.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      Mobile IC Identifier &mdash; For repair technicians &amp; electronics enthusiasts.
+      Data is provided for informational and diagnostic purposes only.
+    </div>
+  </footer>
+
+  <!-- Chip Detail Modal -->
+  <div class="modal-overlay" id="chip-modal" role="dialog" aria-modal="true">
+    <div class="modal" id="chip-modal-content"></div>
+  </div>
+
+  <script src="/js/shared.js"></script>
+</body>
+</html>
