@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera Scan – Mobile IC Identifier</title>
+  <meta name="description" content="Use your device camera to scan mobile phone chips in real time." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="brand-icon">🔬</span>
+        Mobile IC Identifier
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload.html">Upload</a></li>
+        <li><a href="/camera.html" class="active">Camera</a></li>
+        <li><a href="/search.html">Search</a></li>
+        <li><a href="/browse.html">Browse DB</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>🎥 Live Camera Scan</h1>
+      <p>Point your camera at a chip label, position it in the guide frame, and press Capture to identify the IC.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="camera-alert"></div>
+
+    <!-- Camera view -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-title">📸 Camera Feed</div>
+
+      <div class="camera-wrap">
+        <video id="camera-video" autoplay playsinline muted></video>
+        <div class="camera-overlay">
+          <div class="camera-guide" title="Position chip inside this frame"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;text-align:center">
+        <small id="camera-status" class="text-muted">Camera not started</small>
+      </div>
+
+      <div class="camera-controls">
+        <button class="btn btn-primary" id="camera-start-btn">▶ Start Camera</button>
+        <button class="btn btn-secondary hidden" id="camera-stop-btn">⏹ Stop Camera</button>
+        <button class="btn btn-accent" id="camera-capture-btn" disabled>📸 Capture &amp; Analyze</button>
+        <button class="btn btn-secondary" id="camera-flash-btn">🔦 Torch</button>
+      </div>
+    </div>
+
+    <!-- Captured frame preview -->
+    <div class="card hidden" id="captured-frame-card" style="margin-bottom:20px">
+      <div class="card-title">🖼️ Last Captured Frame</div>
+      <img id="captured-image" src="" alt="Captured frame" class="hidden"
+           style="max-height:250px;border-radius:var(--radius-sm);border:1px solid var(--color-border);margin:0 auto" />
+    </div>
+
+    <!-- Loading -->
+    <div id="ocr-loading" class="hidden" style="text-align:center;padding:32px 0">
+      <div class="spinner"></div>
+      <div class="loading-text">Analyzing captured frame…</div>
+    </div>
+
+    <!-- Results -->
+    <div id="results-section" class="hidden">
+      <div class="results-header">
+        <div class="card-title">🧩 Detected Chips</div>
+        <div class="results-count" id="results-count"></div>
+      </div>
+      <div id="results-cards"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">💡 Camera Tips</div>
+      <ul style="color:var(--color-text-muted);font-size:.875rem;line-height:2;padding-left:20px">
+        <li>Hold the device steady to avoid motion blur</li>
+        <li>Ensure bright, even lighting on the chip surface</li>
+        <li>Position the chip text inside the blue guide frame</li>
+        <li>Try the torch button for better visibility in dim conditions</li>
+        <li>For best results, use a macro lens or get within 5–10cm of the chip</li>
+        <li>If no match found, try <a href="/upload.html">Upload mode</a> with a higher-quality photo</li>
+      </ul>
+    </div>
+
+    <!-- Privacy note -->
+    <div class="alert alert-info" style="margin-top:16px">
+      🔒 <strong>Privacy:</strong> Captured images are sent to the server only for OCR analysis and are <strong>not stored</strong>.
+      They are discarded immediately after processing.
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Mobile IC Identifier &mdash; For repair technicians &amp; electronics enthusiasts.
+    </div>
+  </footer>
+
+  <!-- Chip Detail Modal -->
+  <div class="modal-overlay" id="chip-modal" role="dialog" aria-modal="true">
+    <div class="modal" id="chip-modal-content"></div>
+  </div>
+
+  <canvas id="capture-canvas"></canvas>
+
+  <script src="/js/shared.js"></script>
+  <script src="/js/camera.js"></script>
+  <script>
+    // Show captured frame card when image is available
+    document.getElementById('camera-capture-btn').addEventListener('click', function () {
+      const card = document.getElementById('captured-frame-card');
+      const img  = document.getElementById('captured-image');
+      if (card && img) {
+        card.classList.remove('hidden');
+        img.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

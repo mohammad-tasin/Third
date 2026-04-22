@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Image – Mobile IC Identifier</title>
+  <meta name="description" content="Upload a photo of a mobile phone motherboard or chip to identify the IC using OCR." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="brand-icon">🔬</span>
+        Mobile IC Identifier
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload.html" class="active">Upload</a></li>
+        <li><a href="/camera.html">Camera</a></li>
+        <li><a href="/search.html">Search</a></li>
+        <li><a href="/browse.html">Browse DB</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>📷 Upload Image for IC Identification</h1>
+      <p>Upload a clear photo of the chip marking. The system will read the code using OCR and match it to our database.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="upload-alert"></div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-title">📁 Select Image</div>
+
+      <!-- Drop zone -->
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,image/tiff"
+               aria-label="Upload image file" />
+        <div class="drop-zone-icon">🖼️</div>
+        <div class="drop-zone-text">
+          <strong>Click to browse</strong> or drag &amp; drop an image here<br>
+          <span style="font-size:.8rem;color:var(--color-text-dim)">JPEG, PNG, WebP, GIF, BMP, TIFF · Max 10MB</span>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="image-preview-wrap hidden" id="image-preview-wrap" style="margin-top:16px;text-align:center">
+        <img class="image-preview" id="image-preview" src="" alt="Selected image preview" />
+        <button class="image-clear-btn" id="image-clear-btn" title="Remove image" aria-label="Clear image">✕</button>
+      </div>
+
+      <div style="margin-top:16px">
+        <button class="btn btn-primary btn-lg btn-full" id="analyze-btn" disabled>
+          🔍 Analyze Image
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="ocr-loading" class="hidden" style="text-align:center;padding:32px 0">
+      <div class="spinner"></div>
+      <div class="loading-text">Running OCR analysis… this may take a few seconds</div>
+    </div>
+
+    <!-- Results -->
+    <div id="results-section" class="hidden">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">🔤 Detected Chip Codes</div>
+        <div id="detected-tokens" class="tokens-wrap"></div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <span id="ocr-confidence" style="font-size:.8rem;font-family:var(--font-mono)"></span>
+          <button class="btn btn-secondary" id="raw-text-toggle" style="font-size:.8rem;padding:4px 12px">
+            Show raw OCR text
+          </button>
+        </div>
+        <div id="raw-text-box" class="hidden" style="margin-top:12px">
+          <pre id="raw-text" style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:12px;font-size:.8rem;overflow-x:auto;white-space:pre-wrap;color:var(--color-text-muted)"></pre>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <div class="results-header">
+          <div class="card-title" style="margin-bottom:0">🧩 Chip Matches</div>
+          <div class="results-count" id="results-count"></div>
+        </div>
+        <div id="results-cards"></div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">💡 Tips for Best Results</div>
+      <ul style="color:var(--color-text-muted);font-size:.875rem;line-height:2;padding-left:20px">
+        <li>Use good lighting – avoid shadows and reflections on the chip surface</li>
+        <li>Get close to the chip so the text fills most of the image</li>
+        <li>Keep the camera parallel to the chip (avoid angle distortion)</li>
+        <li>Clean the chip surface if dust is obscuring the markings</li>
+        <li>If OCR fails, note the chip code and use <a href="/search.html">Manual Search</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Mobile IC Identifier &mdash; For repair technicians &amp; electronics enthusiasts.
+    </div>
+  </footer>
+
+  <!-- Chip Detail Modal -->
+  <div class="modal-overlay" id="chip-modal" role="dialog" aria-modal="true">
+    <div class="modal" id="chip-modal-content"></div>
+  </div>
+
+  <canvas id="capture-canvas"></canvas>
+
+  <script src="/js/shared.js"></script>
+  <script src="/js/upload.js"></script>
+</body>
+</html>

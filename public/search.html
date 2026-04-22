@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Chip Code – Mobile IC Identifier</title>
+  <meta name="description" content="Search for mobile phone IC details by entering a chip code, part number, or name." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span class="brand-icon">🔬</span>
+        Mobile IC Identifier
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload.html">Upload</a></li>
+        <li><a href="/camera.html">Camera</a></li>
+        <li><a href="/search.html" class="active">Search</a></li>
+        <li><a href="/browse.html">Browse DB</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>🔍 Search Chip Database</h1>
+      <p>Enter a chip code, part number, or name to find detailed IC information. Supports exact and fuzzy matching.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="search-alert"></div>
+
+    <!-- Search input -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-title">Enter Chip Code or Name</div>
+      <div class="search-row">
+        <input
+          type="text"
+          class="form-input"
+          id="search-input"
+          placeholder="e.g. SD888, MT6893, IMX766, KLMAG2GEAC…"
+          maxlength="100"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Chip code or name search"
+        />
+        <button class="btn btn-primary" id="search-btn">Search</button>
+      </div>
+
+      <!-- Quick examples -->
+      <div style="margin-top:12px">
+        <span style="font-size:.8rem;color:var(--color-text-muted)">Try: </span>
+        <span class="tokens-wrap" style="display:inline-flex;margin-top:4px">
+          <span class="token" data-example="SD888">SD888</span>
+          <span class="token" data-example="MT6893">MT6893</span>
+          <span class="token" data-example="IMX766">IMX766</span>
+          <span class="token" data-example="WCD9380">WCD9380</span>
+          <span class="token" data-example="BQ25970">BQ25970</span>
+          <span class="token" data-example="Snapdragon">Snapdragon</span>
+          <span class="token" data-example="Samsung">Samsung eMMC</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="search-loading" class="hidden" style="text-align:center;padding:32px 0">
+      <div class="spinner"></div>
+      <div class="loading-text">Searching database…</div>
+    </div>
+
+    <!-- Results -->
+    <div id="results-section" class="hidden">
+      <div class="results-header">
+        <div class="card-title">Results</div>
+        <div class="results-count" id="results-count"></div>
+      </div>
+      <div id="results-cards"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Mobile IC Identifier &mdash; For repair technicians &amp; electronics enthusiasts.
+    </div>
+  </footer>
+
+  <!-- Chip Detail Modal -->
+  <div class="modal-overlay" id="chip-modal" role="dialog" aria-modal="true">
+    <div class="modal" id="chip-modal-content"></div>
+  </div>
+
+  <script src="/js/shared.js"></script>
+  <script src="/js/search.js"></script>
+  <script>
+    // Quick example token click
+    document.querySelectorAll('.token[data-example]').forEach((tok) => {
+      tok.addEventListener('click', () => {
+        const input = document.getElementById('search-input');
+        if (input) {
+          input.value = tok.dataset.example;
+          document.getElementById('search-btn').click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
